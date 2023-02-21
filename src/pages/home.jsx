@@ -1,17 +1,16 @@
 import { useState } from 'react';
-import { Input, message, Card } from 'antd';
+import { Input, message } from 'antd';
 
 import { getInfo as getInfoApi } from '@/api';
 import BaseInfo from './BaseInfo';
 import Transaction from './Transaction';
 import { getShortAddress, getNumberString, valueToEther, formatSecond } from '@/utils';
-import './home.scss';
+import '@/styles/home.scss';
 
 const { Search } = Input;
 
 function Home() {
   const [hash, setHash] = useState('00000000000000000007878ec04bb2b2e12317804810f4c26033585b3f81ffaa');
-  const [info, setInfo] = useState({});
   const [baseInfo, setBaseInfo] = useState(null);
   const [transactionInfo, setTransactionInfo] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -28,9 +27,7 @@ function Home() {
     setLoading(true);
     try {
       const res = await getInfoApi(hash);
-      console.log('res', res);
       setLoading(false);
-      setInfo(res);
       setBaseInfo({
         hash: res.hash,
         shortHash: getShortAddress(res.hash),
@@ -65,7 +62,9 @@ function Home() {
         />
       </header>
 
-      <div className="w-full mt-20 container mx-auto px-4">
+      <div
+        className="w-full mt-20 container mx-auto px-4 box-border
+      ">
         <BaseInfo info={baseInfo} loading={loading} />
         <Transaction info={transactionInfo} loading={loading} />
       </div>

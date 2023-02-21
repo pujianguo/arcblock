@@ -43,3 +43,16 @@ export const decimalFloat = (value, decimals = 2) => {
 export const valueToEther = (value) => {
   return formatUnits(value, 8);
 };
+
+// 节流
+export const throttle = (fn, interval = 300) => {
+  let canRun = true;
+  return function () {
+    if (!canRun) return;
+    canRun = false;
+    setTimeout(() => {
+      fn.apply(this, arguments);
+      canRun = true;
+    }, interval);
+  };
+};
